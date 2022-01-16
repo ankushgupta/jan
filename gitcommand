@@ -1,0 +1,89 @@
+root@kubeworker2:~/jan# history 
+    1  git clone https://github.com/ankushgupta/jan.git
+    2  cd jan/
+    3  ls -l
+    4  echo "hello workd" > file1
+    5  git add  file1 
+    6  git status
+    7  git commit -m "initial commit"
+    8  git push
+    9  ssh-keygen 
+   10  cat /root/.ssh/id_rsa.pub
+   11  git rmote -v
+   12  git remote -v
+   13  git remote remove origin
+   14  git remote -v
+   15  git remote add origin git@github.com:ankushgupta/jan.git
+   16  git remote -v
+   17  git push
+   18  git push origin master
+   19  git branch -a
+   20  git checkout -b dev
+   21  ls -l
+   22  echo "test" > file2
+   23  git status
+   24  git add file2
+   25  git status
+   26  git commit -m "new branch"
+   27  git push origin dev
+   28  exit
+   29  cd jan/
+   30  ls -l
+   31  git branch -a
+   32  git checkout master
+   33  ls -l
+   34  git pull
+   35  ls -l
+   36  git pull origin master
+   37  ls -l
+   38  git checkout -b qa
+   39  echo "test1" > file3
+   40  git add file2
+   41  git add file3
+   42  git commit -m "new branch qa"
+   43  git push origin qa
+   44  git checkout dev
+   45  git log
+   46  git checkout master
+   47  ls -l
+   48  git pull origin master
+   49  git checkout dev
+   50  git pull origin dev
+   51  git rebase master
+   52  ls -l
+   53  git branch -a
+   54  echo "test4" > file4
+   55  git stash -u
+   56  ls -l
+   57  git checkout qa
+   58  vi file3
+   59  git add file3
+   60  git commit -m "update file3"
+   61  git push origin qa
+   62  git checkout dev
+   63  git stash pop
+   64  ls -l
+   65  git log
+   66  git status
+   67  git add file4
+   68  git commit -m "update file4"
+   69  git push origin dev
+   70  git log
+   71  echo "tst5" > file5
+   72  git add file5
+   73  git commit -m "update file5"
+   74  vi file6
+   75  git add file6
+   76  git commit -m "update file6"
+   77  git log
+   78  git revert 3ac1ac0486c57824c65bcd52eee446e757f3fa6b
+   79  git log
+   80  ls -l
+   81  git log
+   82  git reset --hard e82fffad97ef3f6c9b6c87d7568f605d3d3c58c3
+   83  ls -l
+   84  git og
+   85  git log
+   86  git diff d9c5deb31a278bc5102bc71b47e57858b3db230a 310ad49f7055b19f9613eb4f456621d34e61de34
+   87  apt-get install ansible
+   88  history 
