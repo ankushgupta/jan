@@ -1,0 +1,96 @@
+ 15  apt-cache search openjdk
+   16  apt-get install openjdk-8-jdk
+   17  apt-get install maven
+   18  mvn --version
+   19  mvn archetype:generate -DgroupId = com.example.bank -DartofactId = hdfc -DarchetypeArtifactId = maven-archetype-quickstart -Dinteractive
+Mode = false
+   20  mvn archetype:generate
+   21  ls -l
+   22  cd hdfc/
+   23  ls -l
+   24  vim pom.xml 
+   25  cd src
+   26  ls -l
+   27  cd main/java/com/example/bank/
+   28  ls -l
+   29  cat App.java 
+   30  cd ../..
+   31  ls -l
+   32  cd ..
+   33  ls- l
+   34  cd ..
+   35  ls -l
+   36  cd ..
+   37  ls -l
+   38  cd test/java/com/example/bank/
+   39  ls -l
+   40  cat AppTest.java 
+   41  cd ../..
+   42  ls -l
+   43  cd ..
+   44  ls -l
+   45  cd ..
+   
+   
+      47  cd ..
+   48  ls -l
+   49  cd ..
+   50  ls -l
+   51  mvn compile
+   52  ls l
+   53  ls -l
+   54  mvn clean
+   55  ls -l
+   56  mvn  package
+   57  ls -l
+   58  cd target/
+   59  ls -l
+   60  cd ..
+   61  ls -l
+   62  mvn clean
+   63  ls -l
+   64  mvn package
+   65  history 
+   66  vim pom.xml 
+   67  history 
+   68  curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee   /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+   69  echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]   https://pkg.jenkins.io/debian-stable binary/ | sudo tee   /etc/apt/source
+s.list.d/jenkins.list > /dev/null
+   70  apt-get update
+   71  apt-get install jenkins
+   72  systemctl start jenkins
+   73  ps -ef | grep -i jenkins
+   74  cat /var/lib/jenkins/secrets/initialAdminPassword
+   75  cd /var/lib/jenkins/
+   76  ls -l
+   77  cd jobs
+   78  ls -l
+   79  cd ..
+   80  vim config.xml 
+   81  cd plugins/
+   82  ls -l
+   83  which mvn
+   
+   84  mvn --version
+   85  history 
+   86  apt-get remove git
+   87  apt-get install git
+   88  cat /etc/passwd
+   89  history 
+   
+   
+   slave machine
+   
+     177  apt-get install openjdk-8-jdk -y
+  178  apt-get install maven
+  179  wget http://34.125.52.229:8080/jnlpJars/agent.jar
+  180  java -jar agent.jar -jnlpUrl http://34.125.52.229:8080/computer/sla
+ve2/jenkins-agent.jnlp -secret 1a3334d3d3d50e23857cf73f61fb09803e4c573dba1
+c9c320595fec8f0c5cae4 -workDir "/home/jenkins" &
+  181  docker run -d jeknins
+  182  docker search jelknins\
+  183  docker search jenkins
+  184  docker run -d jenkins/jenkins:lts
+  185  docker ps
+  186  docker run -d -p 8081:8080 jenkins/jenkins:lts
+  187  history 
