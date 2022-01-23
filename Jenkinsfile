@@ -25,6 +25,9 @@ pipeline {
               when {
                   branch 'master'
               }
+              input{
+                  message "do you want to deploy"
+              }
             steps {
                 echo 'prod environment'
                 echo "$USERNAME"
