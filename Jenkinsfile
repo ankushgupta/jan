@@ -22,6 +22,9 @@ pipeline {
             }
          }
           stage('prod') {
+              when {
+                  branch 'master'
+              }
             steps {
                 echo 'prod environment'
                 echo "$USERNAME"
