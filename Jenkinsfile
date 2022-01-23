@@ -13,18 +13,23 @@ pipeline {
                 echo "$USERNAME"
                 echo "$PASSWORD"
             }
+        }
          stage('dev') {
             steps {
                 echo 'dev environment'
                 echo "$USERNAME"
                 echo "$PASSWORD"
             }
+         }
           stage('prod') {
+              when {
+                  branch 'master'
+              }
             steps {
                 echo 'prod environment'
                 echo "$USERNAME"
                 echo "$PASSWORD"
             }
-        }
+          }
     }
 }
