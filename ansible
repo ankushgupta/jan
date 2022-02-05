@@ -1,0 +1,30 @@
+172  apt-get install ansible
+  173  cd /etc/ansible/
+  174  ls -l
+  175  ssh ansibleclient
+  176  vi /etc/ssh/sshd_config
+  177  systemctl sshd restart
+  178  systemctl restart sshd
+  179  ssh-keygen 
+  180  cd /root/.ssh/
+  181  ls -l
+  182  cat id_rsa.pub
+  183  ssh ansibleclient
+  184  date
+  185  cd
+  186  vi test.sh
+  187  sh test.sh 
+  188  sh test.sh
+  189  apt-get install nginx -y
+  190  ansible ansibleclient -m command -a "df -h
+  191  ansible ansibleclient -m command -a "df -h"
+  192  cd /etc/hosts
+  193  cd /etc/ansible/
+  194  vim hosts
+  195  ansible ansibleclient -m command -a "df -h"
+  196  ansible ansibleclient -m command -a "hostname"
+  197  ansible ansibleclient -m command -a "apt-get install git -y"
+  198  ansible ansibleclient -m package -a "name=apache2,state=latest"
+  199  ansible ansibleclient -m package -a "name=apache2 state=latest"
+  200  ansible ansibleclient -m setup
+  201  history 
