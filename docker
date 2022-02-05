@@ -71,3 +71,100 @@
    71  docker login
    72  docker push ankushgupta0727/customapache:18.04
    73  history 
+82  cd work/
+   83  ls -l
+   84  vim Dockerfile
+   85  docker build -t apachedemo .
+   86  echo "testing" > index.html
+   87  docker build -t apachedemo .
+   88  cat Dockerfile 
+   89  docker images
+   90  docker run -d ubuntu 
+   91  docker run -d httpd
+   92  docekr  ps
+   93  docker pos
+   94  docker ps
+   95  docker run -d ubuntu date
+   96  docker logs 8a9d4772c7a80129c4ea7d98a79ca2b450ef83aa479c526ec93dc12ab0c96d2c
+   97  docker ps
+   98  apt-get install apache2
+   99  netstat -tunlp
+  100  kill -9 6881
+  101  systemctl start apache2
+  102  ps -ef | grep -i apache
+  103  date
+  104  ps -ef | grep -i date
+  105  docker images
+  106  docker run -d -p 8080:80  apachedemo
+  107  docker ps
+  108  docker run -d -p 8081:80  apachedemo date
+  109  docker ps
+  110  docker logs 137703781fd679dec3358c68848ca99676c6b0719b60e081e8e070b34a12d834
+  111  vim Dockerfile 
+  112  docker stop c3f4c85a4148 e54fd2fa522d 0c59ecbea65f 17c42c450d83 009ea3551618
+  113  docker build -t apachedemo .
+  114  docker run -d -p 8081:80  apachedemo 
+  115  docker ps
+  116  docker run -d -p 8081:80  apachedemo date
+  117  docker run -d -p 8082:80  apachedemo date
+  118  docker ps
+  119  docker volume ls
+  120  docker volume create myvol
+  121  docker volume ls
+  122  cd /var/lib/docker/
+  123  ls -l
+  124  cd volumes/
+  125  ls -l
+  126  cd myvol/
+  127  ls -l
+  128  _data/
+  129  ls -l
+  130  cd _data/
+  131  ls -l
+  132  docker run -it -d --mount source=myvol,destination=/tmp ubuntu /bin/bash
+  133  docker ps
+  134  docker exec -it 820567ee9ef3 /bin/bash
+  135  ls -l
+  136  touch 6 7 8 9 10
+  137  docker exec -it 820567ee9ef3 /bin/bash
+  138  docker ps
+  139  docker stop 820567ee9ef3; docker rm 820567ee9ef3
+  140  ls -l
+  141  docker network ls
+  142  cd
+  143  docker network ls
+  144  docker network inspect 2674ae1113e7
+  145  docker network create --driver bridge ajitnw
+  146  docker network ls
+  147  docker run -it -d --network-ajitnw ubuntu /bin/bash
+  148  docker run -it -d --network=ajitnw ubuntu /bin/bash
+  149  docker exec -it 26beb3adad63dce60c466b8b93a5452bc78ccf34b344c9929b8b699b72c806e8 /bin/bash
+  150  docker network ls
+  151  docker network inspect 2674ae1113e7
+  152  docker network inspect ajitnw
+  153  docker network --help
+  154  docker network create --help
+  155  docker run -d -p 5000:5000 --name localregistry registry
+  156  docker ps
+  157  docker images
+  158  docker tag customapache localhost:5000/customapache
+  159  docker push localhost:5000/customapache
+  160  docker rmi customapache
+  161  docker images
+  162  docker rmi 39660a139c00 
+  163  docker rmi 39660a139c00  -f
+  164  docker images
+  165  docker pull localhost:5000/customapache
+  166  docker images
+  167  history 
+  
+  
+  
+  dockerfile
+root@docker:~/work# cat Dockerfile 
+FROM ubuntu:18.04
+RUN apt-get update -y && apt-get install apache2 -y
+ADD index.html /var/www/html
+EXPOSE 80
+ENV Name webserver
+ENTRYPOINT apachectl -D FOREGROUND
