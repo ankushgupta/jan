@@ -123,3 +123,151 @@ playbook
     - name: move file
       shell: "cp {{ item }} /etc/ansible"
       with_items: "{{ output.stdout_lines }}"
+      
+    
+    258  vim demo1.yml 
+  259  ls -l
+  260  ls- l
+  261  ls -l
+  262  mkdir roles
+  263  cd roles
+  264  ansible-galaxy init apache --offline
+  265  ls -l
+  266  cd apache/
+  267  ls -l
+  268  cd tasks/
+  269  ls -l
+  270  vim main.yml 
+  271  cd ..
+  272  ls -l
+  273  cd vars/
+  274  ls -l
+  275  vim main.yml 
+  276  cd ..
+  277  ls -l
+  278  cd files/
+  279  ls -l
+  280  cp /etc/ansible/apache2.conf 
+  281  cp /etc/ansible/apache2.conf .
+  282  cd ..
+  283  ls -l
+  284  cd tasks/
+  285  vim main.yml 
+  286  cd ..
+  287  cd handlers/
+  288  vim main.yml 
+  289  cd ..
+  290  cd templates/
+  291  ls -l
+  292  vim index.html.j2
+  293  ansible localhost -m setup | grep -i ansible_all_ipv4_address
+  294  ansible localhost -m setup | grep -i ansible_all_ipv4_addresses
+  295  ansible localhost -m setup | grep -i ansible_ip
+  296  ansible localhost -m setup 
+  297  vim index.html.j2 
+  298  cd ..
+  299  cd tasks/
+  300  vim main.yml 
+  301  cd ../..
+  302  cd ..
+  303  cp demo1.yml demo2.yml
+  304  vim demo2.yml 
+  305  cd /etc/ansible/
+  306  ls -l
+  307  vim demo2.yml 
+  308  ansible-playbook demo2.yml 
+  309  vim roles/apache/tasks/main.yml 
+  310  ansible-playbook demo2.yml 
+  311  vim roles/apache/tasks/main.yml 
+  312  ansible-playbook demo2.yml 
+  313  vim roles/apache/tasks/main.yml 
+  314  vim roles/apache/vars/main.yml 
+  315  ansible-playbook demo2.yml 
+  316  vim roles/apache/vars/main.yml 
+  317  vim roles/apache/tasks/main.yml 
+  318  cd roles/apache/vars/
+  319  cat main.yml 
+  320  cd ..
+  321  cd defaults/
+  322  vim main.yml 
+  323  cd ../../../
+  324  ansible-playbook demo2.yml 
+  325  vim roles/apache/tasks/main.yml 
+  326  ansible-playbook demo2.yml 
+  327  vim roles/apache/templates/index.html.j2 
+  328  ansible localhost -m setup 
+  329  ansible localhost -m setup  | grep -i default
+  330  ansible localhost -m setup  | grep -i default -B1
+  331  ansible localhost -m setup  | grep -i default -B2
+  332  ansible localhost -m setup  | grep -i default -B4
+  333  vim roles/apache/templates/index.html.j2 
+  334  ansible-playbook demo2.yml 
+  335  vim roles/apache/templates/index.html.j2 
+  336  ansible localhost -m setup | more
+  337  vim roles/apache/templates/index.html.j2 
+  338  ansible localhost -m setup | more
+  339  ansible-playbook demo2.yml 
+  340  vim roles/apache/templates/index.html.j2 
+  341  ansible-playbook demo2.yml 
+  342  vim roles/apache/templates/index.html.j2 
+  343  ansible-playbook demo2.yml 
+  344  vim roles/apache/templates/index.html.j2 
+  345  history 
+
+
+root@docker:/etc/ansible/roles/apache# cat tasks/main.yml 
+---
+# tasks file for apache
+- name: install apache package
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - "{{ package }}"
+- name: copy apache conf file
+  copy:
+    src: /etc/ansible/apache2.conf
+    dest: /etc/apache2/apache2.conf
+  notify: restart apache service
+- name: start apache service
+  service:
+    name: apache2
+    state: started
+- name: copy index.html
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    #  when: servicename == "apache2"
+- name: print msg
+  debug:
+    msg: successfully installed apache2
+- name: copying file
+  shell: "ls /tmp/*.log"
+  register: output
+
+- name: move file
+  shell: "cp {{ item }} /etc/ansible"
+  with_items: "{{ output.stdout_lines }}"
+  
+  
+  
+ root@docker:/etc/ansible/roles/apache# cat handlers/main.yml 
+---
+# handlers file for apache
+- name: restart apache service
+  service:
+    name: apache2
+    state: restarted
+    
+    
+ 
+root@docker:/etc/ansible/roles/apache# cat templates/index.html.j2 
+Welcome to devops world
+the ip address of this machine is "{{ansible_default_ipv4.address}}"
+
+
+root@docker:/etc/ansible/roles/apache# cat defaults/main.yml 
+---
+# defaults file for apache
+package: apache2
+servicename: apache2
