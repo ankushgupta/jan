@@ -28,3 +28,89 @@
   199  ansible ansibleclient -m package -a "name=apache2 state=latest"
   200  ansible ansibleclient -m setup
   201  history 
+  202  cd /etc/ansible/
+  203  ls -l
+  204  vim ansible.cfg 
+  205  vim demo1.yml
+  206  ansible-playbook demo1.yml --syntax-check
+  207  ansible-playbook demo1.yml 
+  208  vim demo1.yml 
+  209  ansible-playbook demo1.yml 
+  210  cd ~/.ssh/
+  211  ls -l
+  212  cat id_rsa.pub
+  213  vi authorized_keys 
+  214  cd -
+  215  ansible-playbook demo1.yml 
+  216  scp ansibleclient:/etc/apache2/apache2.conf .
+  217  ls -l
+  218  vim apache2.conf 
+  219  vim demo1.yml 
+  220  ansible-playbook demo1.yml --syntax-check
+  221  vim demo1.yml 
+  222  ansible-playbook demo1.yml --syntax-check
+  223  ansible-playbook demo1.
+  224  ansible-playbook demo1.yml 
+  225  vi demo1.yml 
+  226  ansible-playbook demo1.yml 
+  227  vi demo1.yml 
+  228  vi apache2.conf 
+  229  vim demo1.
+  230  vim demo1.yml 
+  231  ansible-playbook demo1.yml 
+  232  vi demo1.yml 
+  233  ansible-playbook demo1.yml 
+  234  vim demo1.yml 
+  235  ansible-playbook demo1.yml 
+  236  vim demo1.yml 
+  237  ansible-playbook demo1.yml 
+  238  vim demo1.yml 
+  239  ansible-playbook demo1.yml 
+  240  vim demo1.yml 
+  241  ansible-playbook demo1.yml 
+  242  vim demo1.yml 
+  243  ansible-playbook demo1.yml 
+  244  vim demo1.yml 
+  245  ansible-playbook demo1.yml 
+  246  vim demo1.yml 
+  247  ansible-playbook demo1.yml 
+  248  vim demo1.yml 
+  249  ansible-playbook demo1.yml 
+  250  vim demo1.yml 
+  251  ansible-playbook demo1.yml 
+  252  vim demo1.yml 
+  253  ansible-playbook demo1.yml 
+  254  vim demo1.yml 
+  255  ansible-playbook demo1.yml 
+  256  vim demo1.yml 
+  257  history 
+
+
+
+
+
+playbook
+
+--
+- name: playbook for apache
+  hosts: ansibleclient
+  vars:
+    package: apache2
+    servicename: apache1
+  tasks:
+    - name: install apache package
+      package:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - "{{ package }}"
+    - name: copy apache conf file
+      copy:
+        src: /etc/ansible/apache2.conf
+        dest: /etc/apache2/apache2.conf
+    - name: start apache service
+      service:
+        name: apache2
+        state: restarted
+      when: servicename == "apache2"
+    - name: print msg
