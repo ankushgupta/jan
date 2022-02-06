@@ -114,3 +114,12 @@ playbook
         state: restarted
       when: servicename == "apache2"
     - name: print msg
+       debug:
+         msg: successfully installed apache2
+    - name: copying file
+      shell: "ls /tmp/*.log"
+      register: output
+
+    - name: move file
+      shell: "cp {{ item }} /etc/ansible"
+      with_items: "{{ output.stdout_lines }}"
