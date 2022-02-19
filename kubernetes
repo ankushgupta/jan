@@ -34,3 +34,187 @@
     8  apt-get install kubeadm=1.20.0-00 kubelet=1.20.0-00 kubectl
     9  kubeadm join 10.182.0.10:6443 --token vi6cj6.sumfwhall5sir3ac --discovery-token-ca-cert-hash sha256:76266fdde522ba9ef91e0850fb58f32fa206b74ed44e572650ec110f79d3c08b 
    10  history 
+
+
+  167  kubectl create -f service_httpd.yml 
+  168  vim service_httpd.yml
+  169  kubectl create -f service_httpd.yml 
+  170  kubectl get svc -n demo
+  171  kubectl get pods -n demo
+  172  kubectl exec httpd-57fc687dcc-6kq4w -n demo -- /bin/bash
+  173  kubectl exec httpd-57fc687dcc-6kq4w -n demo -- /bin/sh
+  174  kubectl exec -it httpd-57fc687dcc-6kq4w -n demo -- /bin/sh
+  175  vim httpd.yml 
+  176  kubectl edit deploy httpd -n demo 
+  177  kubectl get pods -n demo
+  178  mkdir /data
+  179  vim pv.yml
+  180  kubectl create -f pv
+  181  kubectl create -f pv.yml 
+  182  kubectl get pv
+  183  vim pvc.yml
+  184  kubectl create -f pvc.yml 
+  185  kubectl get pvc
+  186  kubectl get pvc -n demo
+  187  kubectl get pv
+  188  vim deploy.yml
+  189  kubectl create -f deploy.yml 
+  190  kubectl get deploy -n demo
+  191  kubectl get pods -n demo
+  192  vim service_nginx.yml
+  193  kubectl create -f service_nginx.yml 
+  194  kubectl get svc -n demo
+  195  ls -l
+  196  vim devops-interview-exercise/
+  197  cd devops-interview-exercise/
+  198  ls -l
+  199  vim Dockerfile 
+  200  cat deployment.yaml 
+  201  xs
+  202  cd
+  203  history 
+  
+  
+  root@km1:~# cat namespace.yml 
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo
+  labels:
+    apps: web-based
+  annotations:
+    type: demo
+    
+    
+    
+ root@km1:~# cat httpd.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd
+  labels:
+    app: httpd
+  namespace: demo
+  annotations:
+    monitoring: "true"
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: httpd
+  template:
+    metadata:
+      labels:
+        app: httpd
+    spec:
+      containers:
+      - image: httpd
+        name: httpd
+        ports:
+        - containerPort: 80
+        
+ root@km1:~# cat service_httpd.yml 
+apiVersion: v1
+kind: Service
+metadata:
+   name: httpd
+   namespace: demo
+   labels:
+     app: httpd
+spec:
+  ports:
+  - nodePort: 30500
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: httpd
+  type: NodePort
+  
+root@km1:~# cat deploy.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+  namespace: demo
+  annotations:
+    monitoring: "true"
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: nginx:stable-perl
+        name: nginx
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+        volumeMounts:
+        - name: pvc1
+          mountPath: /tmp
+      volumes:
+      - name: pvc1
+        persistentVolumeClaim:
+          claimName: my-volpvc
+          
+    
+    root@km1:~# cat service_nginx.yml 
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: nginx
+  name: nginx
+  namespace: demo
+spec:
+  ports:
+  - nodePort: 30400
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx
+  type: NodePort
+  
+  root@km1:~# cat pv.yml 
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: myvol
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data"
+    
+  
+ root@km1:~# cat pvc.yml 
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-volpvc
+  namespace: demo
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
