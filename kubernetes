@@ -218,3 +218,126 @@ spec:
   resources:
     requests:
       storage: 1Gi
+
+root@km1:~# cat quota.yml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: mem-cpu-demo
+  namespace: demo
+spec:
+  hard:
+    requests.cpu: "1"
+    requests.memory: 1Gi
+    limits.cpu: "2"
+    limits.memory: 2Gi
+    
+    
+  root@km1:~# cat admin.yml 
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: kube-system
+  
+ root@km1:~# cat rule.yml 
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  namespace: demo
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: httpd
+          servicePort: 80
+        path: /
+      - backend: 
+         serviceName: nginx
+         servicePort: 80
+        path: /foo
+        
+        
+        
+  
+  204  ls -l
+  205  cat namespace.yml 
+  206  cat httpd.yml 
+  207  cat service_httpd.yml 
+  208  cat deploy.yml 
+  209  cat service_nginx.yml 
+  210  cat pv.yml 
+  211  cat pvc.yml 
+  212  history 
+  213  kubectl delete -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
+  214  kubectl create -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.34.1/deploy/static/provider/baremetal/deploy.yaml
+  215  kubectl delete  -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.34.1/deploy/static/provider/baremetal/deploy.yaml
+  216  kubectl create -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.34.1/deploy/static/provider/baremetal/deploy.yaml
+  217  kubectl delete  -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.34.1/deploy/static/provider/baremetal/deploy.yaml
+  218  kubectl get pods --all-namespace
+  219  kubectl get pods --all-namespaces
+  220  kubectl create -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.34.1/deploy/static/provider/baremetal/deploy.yaml
+  221  kubectl delete  -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.34.1/deploy/static/provider/baremetal/deploy.yaml
+  222  kubectl create -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.34.1/deploy/static/provider/baremetal/deploy.yaml
+  223  kubectl get ns
+  224  kubectl get pods -n ingress-nginx
+  225  kubectl get svc -n ingress-nginx
+  226  kubectl get ing
+  227  kubectl delete ing ¸ˇ
+  228  kubectl get ing
+  229  kubectl delete ing nginx-proxy
+  230  vim rule.yml
+  231  kubectl create -f rule.yml 
+  232  kubectl get ing -n demo
+  233  cat rule.yml 
+  234  q!
+  235  kubectl get svc -n demo
+  236  vim quota.yml
+  237  kubectl create -f quota.yml 
+  238  kubectl get quota -n demo
+  239  kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
+  240  kubectl get pods -n kube-system
+  241  vim admin.yml
+  242  kubectl create -f admin.yml 
+  243  kubectl get svc -n kube-system
+  244  kubectl edit svc kubernetes-dashboard -n kube-system
+  245  kubectl get svc -n kube-system
+  246  kubectl get secrets
+  247  kubectl get secrets -n kube-system
+  248  kubectl describe  secrets admin-user-token-hhfwh -n kube-system
+  249  kubectl get deploy -n demo
+  250  kubectl describe deploy httpd -n demo
+  251  kubectl get pods -n demo
+  252  kubectl get pods -n demo -o wide
+  253  ls -l
+  254  cat httpd.yml 
+  255  cp httpd.yml dset.yml
+  256  vim dset.yml 
+  257  kubectl create -f dset.yml 
+  258  vim dset.yml 
+  259  kubectl create -f dset.yml 
+  260  kubectl get daemonset
+  261  kubectl get daemonset -n demo
+  262  ll
+  263  cat test.py
+  264  python3 test.py 
+  265  ls -l
+  266  cat quota.yml
+  267  cat admin.yml 
